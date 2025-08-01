@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+*.log
+.DS_Store
+package.json
+package-lock.json
+yarn.lock
+next.config.js
+tsconfig.json

@@ -1,184 +1,160 @@
-# AgroTechHub
+# 🌱 AgroTechHub - Plataforma Agrícola Inteligente
 
-Um site profissional e interativo voltado para o setor agrícola, conectando produtores, compradores e tecnologia.
+Um site profissional e interativo voltado para o setor agrícola, conectando produtores, compradores e tecnologia com dados meteorológicos reais de todo o mundo.
 
-## Funcionalidades
+## 🚀 Deploy no Vercel
 
-- **Página inicial atrativa** com banner sobre agricultura moderna e sustentável
-- **Sistema de login e cadastro** para produtores e compradores
-- **Painel de controle** para cadastro de plantações com:
-  - Nome da plantação
-  - Tipo de cultura (soja, milho, café, etc.)
-  - Localização
-  - Previsão de colheita
-  - Imagens da lavoura
-- **Página de compras** com listagem de produtos agrícolas
-- **Previsão do tempo** integrada via API
-- **Blog** com dicas sobre agricultura inteligente e sustentável
-- **Design responsivo** com animações suaves e esquema de cores verde/terra
+Este projeto está configurado para deploy automático no Vercel.
 
-## Tecnologias Utilizadas
+### 📋 Pré-requisitos
+
+- Conta no [Vercel](https://vercel.com)
+- Conta no [GitHub](https://github.com)
+
+### 🔧 Passos para Deploy
+
+1. **Fork ou Clone este repositório**
+2. **Conecte ao Vercel:**
+   - Acesse [vercel.com](https://vercel.com)
+   - Clique em "New Project"
+   - Importe seu repositório do GitHub
+   - Configure as variáveis de ambiente (opcional)
+
+3. **Deploy Automático:**
+   - O Vercel detectará automaticamente que é um projeto Python/Flask
+   - O deploy será feito automaticamente usando as configurações em `vercel.json`
+
+### 🌐 URL de Produção
+
+Após o deploy, seu site estará disponível em:
+\`\`\`
+https://seu-projeto.vercel.app
+\`\`\`
+
+## ✨ Funcionalidades
+
+- **🏠 Página inicial** com design moderno e responsivo
+- **👤 Sistema de autenticação** (login/cadastro)
+- **📊 Dashboard** para produtores rurais
+- **🛒 Marketplace** de produtos agrícolas
+- **🌤️ Previsão do tempo global** com dados reais
+- **📝 Blog** com conteúdo sobre agricultura
+- **📱 Design responsivo** para todos os dispositivos
+
+## 🌍 Sistema de Clima
+
+- ✅ **Dados meteorológicos reais** de qualquer cidade do mundo
+- ✅ **Múltiplas APIs** para garantir disponibilidade
+- ✅ **Previsão de 5 dias** detalhada
+- ✅ **Interface intuitiva** com exemplos de cidades
+
+### APIs Utilizadas:
+1. **wttr.in** - Principal fonte de dados
+2. **OpenMeteo** - Backup científico gratuito
+3. **Geocoding** - Para localização precisa
+
+## 🛠️ Tecnologias
 
 ### Frontend
-- HTML5
-- CSS3 com Flexbox e Grid
-- JavaScript ES6+
+- HTML5 + CSS3 + JavaScript
 - Font Awesome (ícones)
 - Google Fonts (Poppins)
+- Design responsivo com Flexbox/Grid
 
 ### Backend
 - Python 3.8+
 - Flask 2.3.3
+- Requests (APIs externas)
 - Jinja2 (templates)
 
-## Instalação e Execução
+### Deploy
+- Vercel (serverless)
+- Configuração automática
+- HTTPS incluído
 
-1. **Clone o repositório**
-\`\`\`bash
-git clone <url-do-repositorio>
-cd agrotechhub
-\`\`\`
-
-2. **Crie um ambiente virtual**
-\`\`\`bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# ou
-venv\Scripts\activate  # Windows
-\`\`\`
-
-3. **Instale as dependências**
-\`\`\`bash
-pip install -r requirements.txt
-\`\`\`
-
-4. **Execute a aplicação**
-\`\`\`bash
-python app.py
-\`\`\`
-
-5. **Acesse no navegador**
-\`\`\`
-http://localhost:5000
-\`\`\`
-
-## Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 \`\`\`
 agrotechhub/
 ├── app.py                 # Aplicação Flask principal
-├── requirements.txt       # Dependências Python
-├── README.md             # Documentação
+├── api/
+│   └── index.py          # Entrada para Vercel
+├── vercel.json           # Configuração Vercel
+├── requirements.txt      # Dependências Python
 ├── templates/            # Templates HTML
-│   ├── base.html         # Template base
-│   ├── index.html        # Página inicial
-│   ├── login.html        # Página de login
-│   ├── register.html     # Página de cadastro
-│   ├── dashboard.html    # Painel do usuário
-│   ├── add_plantation.html # Cadastro de plantação
-│   ├── products.html     # Página de produtos
-│   ├── weather.html      # Previsão do tempo
-│   └── blog.html         # Blog
-└── static/               # Arquivos estáticos
-    ├── css/
-    │   └── style.css     # Estilos CSS
-    ├── js/
-    │   └── script.js     # JavaScript
-    └── images/           # Imagens (placeholder)
+│   ├── base.html
+│   ├── index.html
+│   ├── weather.html
+│   └── ...
+├── static/               # Arquivos estáticos
+│   ├── css/style.css
+│   └── js/script.js
+└── README.md
 \`\`\`
 
-## Funcionalidades Detalhadas
+## 🔐 Variáveis de Ambiente (Opcional)
 
-### Sistema de Autenticação
-- Cadastro de usuários (produtores e compradores)
-- Login com validação
-- Sessões seguras
-- Logout
+No painel do Vercel, você pode configurar:
 
-### Dashboard do Produtor
-- Visualização de estatísticas
-- Listagem de plantações cadastradas
-- Cadastro de novas plantações
-- Edição e exclusão de plantações
+\`\`\`bash
+SECRET_KEY=sua_chave_secreta_aqui
+\`\`\`
 
-### Produtos Agrícolas
-- Catálogo de produtos (sementes, insumos, equipamentos)
-- Filtros por categoria
-- Informações de contato dos vendedores
-- Design responsivo com cards
+## 🧪 Teste Local
 
-### Previsão do Tempo
-- Busca por cidade
-- Informações meteorológicas atuais
-- Previsão para os próximos dias
-- Interface intuitiva
+Para testar localmente antes do deploy:
 
-### Blog
-- Artigos sobre agricultura inteligente
-- Design moderno com cards
-- Informações do autor e data
+\`\`\`bash
+# Clone o repositório
+git clone <seu-repositorio>
+cd agrotechhub
 
-## Dados de Teste
+# Crie ambiente virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# ou
+venv\Scripts\activate     # Windows
 
-### Usuário de Teste
+# Instale dependências
+pip install -r requirements.txt
+
+# Execute a aplicação
+python app.py
+\`\`\`
+
+Acesse: `http://localhost:5000`
+
+## 📊 Dados de Teste
+
+### Usuário Demo:
 - **Email:** admin@agro.com
 - **Senha:** 123456
-- **Tipo:** Produtor
 
-### Produtos Pré-cadastrados
-- Sementes de Soja Premium
-- Fertilizante NPK 20-05-20
-- Trator Compacto 75CV
+### Cidades para Teste do Clima:
+- São Paulo, Brasil
+- Tokyo, Japan
+- New York, USA
+- Paris, France
+- London, UK
 
-## Personalização
+## 🚀 Funcionalidades Futuras
 
-### Cores do Tema
-As cores podem ser alteradas no arquivo `static/css/style.css`:
-\`\`\`css
-:root {
-    --primary-color: #2d5016;    /* Verde escuro */
-    --secondary-color: #4a7c59;  /* Verde médio */
-    --accent-color: #8fbc8f;     /* Verde claro */
-    --earth-color: #8b4513;      /* Cor terra */
-    --light-green: #f0f8f0;      /* Verde muito claro */
-}
-\`\`\`
+- [ ] Banco de dados real (PostgreSQL)
+- [ ] Sistema de upload de imagens
+- [ ] Chat entre usuários
+- [ ] Notificações push
+- [ ] API própria
+- [ ] App mobile
 
-### Adicionando Novas Funcionalidades
-1. Crie novas rotas no `app.py`
-2. Adicione templates correspondentes em `templates/`
-3. Implemente o JavaScript necessário em `static/js/script.js`
-4. Adicione estilos em `static/css/style.css`
-
-## Melhorias Futuras
-
-- Integração com banco de dados real (PostgreSQL/MySQL)
-- API de clima real (OpenWeatherMap)
-- Sistema de upload de imagens
-- Chat entre usuários
-- Sistema de avaliações
-- Integração com mapas
-- Notificações push
-- App mobile
-
-## Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-## Contato
+## 📞 Suporte
 
 - **Email:** contato@agrotechhub.com
-- **Telefone:** (11) 99999-0000
-- **Endereço:** São Paulo, SP
+- **GitHub:** [Issues](https://github.com/seu-usuario/agrotechhub/issues)
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
 
 ---
 
-Desenvolvido com ❤️ para o agronegócio brasileiro.
+**Desenvolvido com ❤️ para o agronegócio mundial** 🌍🚜

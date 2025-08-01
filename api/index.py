@@ -5,8 +5,9 @@ from datetime import datetime
 import requests
 import urllib.parse
 
-app = Flask(__name__)
-app.secret_key = 'agrotechhub_secret_key_2024'
+# Criar a aplicação Flask
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
+app.secret_key = os.environ.get('SECRET_KEY', 'agrotechhub_secret_key_2024')
 
 # Simulação de banco de dados em memória
 users_db = {
@@ -154,22 +155,15 @@ def get_weather(city):
         # Primeira tentativa: wttr.in (mais confiável)
         try:
             weather_data = get_weather_from_wttr(city)
-        except:
-            pass
+        except Exception as e:
+            print(f"wttr.in falhou: {e}")
         
         # Segunda tentativa: OpenMeteo (backup)
         if not weather_data:
             try:
                 weather_data = get_weather_from_openmeteo(city)
-            except:
-                pass
-        
-        # Terceira tentativa: WeatherAPI (backup 2)
-        if not weather_data:
-            try:
-                weather_data = get_weather_from_weatherapi(city)
-            except:
-                pass
+            except Exception as e:
+                print(f"OpenMeteo falhou: {e}")
         
         if not weather_data:
             return jsonify({'error': 'Não foi possível obter dados meteorológicos para esta cidade'}), 404
@@ -184,7 +178,7 @@ def get_weather_from_wttr(city):
     """Obter dados do wttr.in"""
     url = f"https://wttr.in/{urllib.parse.quote(city)}?format=j1"
     
-    response = requests.get(url, timeout=10, headers={
+    response = requests.get(url, timeout=15, headers={
         'User-Agent': 'AgroTechHub/1.0'
     })
     
@@ -287,7 +281,7 @@ def get_weather_from_openmeteo(city):
     # Primeiro, obter coordenadas da cidade
     geocoding_url = f"https://geocoding-api.open-meteo.com/v1/search?name={urllib.parse.quote(city)}&count=1&language=pt&format=json"
     
-    geo_response = requests.get(geocoding_url, timeout=10)
+    geo_response = requests.get(geocoding_url, timeout=15)
     if geo_response.status_code != 200:
         raise Exception("Falha na geocodificação")
     
@@ -301,7 +295,7 @@ def get_weather_from_openmeteo(city):
     # Obter dados meteorológicos
     weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,surface_pressure,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=5"
     
-    weather_response = requests.get(weather_url, timeout=10)
+    weather_response = requests.get(weather_url, timeout=15)
     if weather_response.status_code != 200:
         raise Exception("Falha na API meteorológica")
     
@@ -351,48 +345,6 @@ def get_weather_from_openmeteo(city):
     
     return weather_data
 
-def get_weather_from_weatherapi(city):
-    """Backup 2: WeatherAPI (versão gratuita limitada)"""
-    # Esta é uma API que oferece algumas consultas gratuitas
-    url = f"http://api.weatherapi.com/v1/forecast.json?key=demo&q={urllib.parse.quote(city)}&days=5&aqi=no&alerts=no"
-    
-    response = requests.get(url, timeout=10)
-    if response.status_code != 200:
-        raise Exception("Falha na WeatherAPI")
-    
-    data = response.json()
-    current = data['current']
-    location = data['location']
-    forecast = data['forecast']['forecastday']
-    
-    weather_data = {
-        'city': f"{location['name']}, {location['country']}",
-        'temperature': int(current['temp_c']),
-        'feels_like': int(current['feelslike_c']),
-        'humidity': int(current['humidity']),
-        'description': current['condition']['text'],
-        'wind_speed': int(current['wind_kph']),
-        'pressure': int(current['pressure_mb']),
-        'visibility': int(current['vis_km']),
-        'icon': get_weather_icon_from_condition(current['condition']['text']),
-        'uv_index': int(current.get('uv', 0)),
-        'forecast': []
-    }
-    
-    # Processar previsão
-    for i, day in enumerate(forecast[:5]):
-        day_name = get_day_name(i)
-        day_data = day['day']
-        weather_data['forecast'].append({
-            'day': day_name,
-            'temp_max': int(day_data['maxtemp_c']),
-            'temp_min': int(day_data['mintemp_c']),
-            'condition': day_data['condition']['text'],
-            'icon': get_weather_icon_from_condition(day_data['condition']['text'])
-        })
-    
-    return weather_data
-
 def get_weather_icon(weather_code):
     """Converte código do clima em ícone Font Awesome"""
     code = str(weather_code)
@@ -433,27 +385,6 @@ def get_weather_icon_openmeteo(weather_code):
     }
     return icon_map.get(weather_code, 'fas fa-sun')
 
-def get_weather_icon_from_condition(condition):
-    """Ícones baseados na descrição textual"""
-    condition_lower = condition.lower()
-    
-    if 'sun' in condition_lower or 'clear' in condition_lower:
-        return 'fas fa-sun'
-    elif 'cloud' in condition_lower and ('part' in condition_lower or 'few' in condition_lower):
-        return 'fas fa-cloud-sun'
-    elif 'cloud' in condition_lower:
-        return 'fas fa-cloud'
-    elif 'rain' in condition_lower or 'shower' in condition_lower:
-        return 'fas fa-cloud-rain'
-    elif 'snow' in condition_lower:
-        return 'fas fa-cloud-snow'
-    elif 'thunder' in condition_lower or 'storm' in condition_lower:
-        return 'fas fa-bolt'
-    elif 'fog' in condition_lower or 'mist' in condition_lower:
-        return 'fas fa-smog'
-    else:
-        return 'fas fa-sun'
-
 def get_day_name(index):
     """Retorna o nome do dia baseado no índice"""
     if index == 0:
@@ -477,5 +408,6 @@ def logout():
     flash('Logout realizado com sucesso!', 'success')
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Handler para Vercel
+def handler(request):
+    return app(request.environ, lambda status, headers: None)
