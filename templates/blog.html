@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - AgroTechHub{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="section-header">
+            <h1>Blog AgroTech</h1>
+            <p>Dicas, novidades e conhecimento sobre agricultura inteligente</p>
+        </div>
+        
+        <div class="blog-grid">
+            {% for post in posts %}
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="/placeholder.svg?height=200&width=400" alt="{{ post.title }}">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">{{ post.date }}</span>
+                        <span class="blog-author">Por {{ post.author }}</span>
+                    </div>
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.content[:150] }}...</p>
+                    <a href="#" class="read-more">Ler mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

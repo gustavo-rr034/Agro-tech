@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Nova Plantação - AgroTechHub{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="container">
+        <div class="form-header">
+            <h1>Cadastrar Nova Plantação</h1>
+            <p>Adicione informações sobre sua plantação</p>
+        </div>
+        
+        <form method="POST" class="plantation-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Nome da Plantação</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="culture_type">Tipo de Cultura</label>
+                    <select id="culture_type" name="culture_type" required>
+                        <option value="">Selecione...</option>
+                        <option value="soja">Soja</option>
+                        <option value="milho">Milho</option>
+                        <option value="cafe">Café</option>
+                        <option value="cana">Cana-de-açúcar</option>
+                        <option value="algodao">Algodão</option>
+                        <option value="feijao">Feijão</option>
+                        <option value="arroz">Arroz</option>
+                        <option value="trigo">Trigo</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="location">Localização</label>
+                    <input type="text" id="location" name="location" placeholder="Cidade, Estado" required>
+                </div>
+                <div class="form-group">
+                    <label for="harvest_date">Previsão de Colheita</label>
+                    <input type="date" id="harvest_date" name="harvest_date" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">URL da Imagem (opcional)</label>
+                <input type="url" id="image" name="image" placeholder="https://exemplo.com/imagem.jpg">
+            </div>
+            
+            <div class="form-actions">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Cadastrar Plantação</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

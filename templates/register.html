@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro - AgroTechHub{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Criar sua conta</h2>
+                <p>Junte-se à nossa comunidade agrícola</p>
+            </div>
+            <form method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="user_type">Tipo de Usuário</label>
+                    <select id="user_type" name="user_type" required>
+                        <option value="">Selecione...</option>
+                        <option value="produtor">Produtor Rural</option>
+                        <option value="comprador">Comprador</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Cadastrar</button>
+            </form>
+            <div class="auth-footer">
+                <p>Já tem uma conta? <a href="{{ url_for('login') }}">Entre aqui</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - AgroTechHub{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Bem-vindo, {{ session.user_name }}!</h1>
+            <a href="{{ url_for('add_plantation') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Nova Plantação
+            </a>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ plantations|length }}</h3>
+                    <p>Plantações Ativas</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>3</h3>
+                    <p>Colheitas este Mês</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>85%</h3>
+                    <p>Produtividade</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="plantations-section">
+            <h2>Suas Plantações</h2>
+            {% if plantations %}
+                <div class="plantations-grid">
+                    {% for plantation in plantations %}
+                    <div class="plantation-card">
+                        <div class="plantation-image">
+                            <img src="{{ plantation.image or '/placeholder.svg?height=200&width=300' + plantation.culture_type }}" alt="{{ plantation.name }}">
+                        </div>
+                        <div class="plantation-info">
+                            <h3>{{ plantation.name }}</h3>
+                            <p><i class="fas fa-leaf"></i> {{ plantation.culture_type }}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> {{ plantation.location }}</p>
+                            <p><i class="fas fa-calendar"></i> Colheita: {{ plantation.harvest_date }}</p>
+                        </div>
+                        <div class="plantation-actions">
+                            <button class="btn btn-sm btn-secondary">Editar</button>
+                            <button class="btn btn-sm btn-danger">Excluir</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Nenhuma plantação cadastrada</h3>
+                    <p>Comece cadastrando sua primeira plantação</p>
+                    <a href="{{ url_for('add_plantation') }}" class="btn btn-primary">Cadastrar Plantação</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

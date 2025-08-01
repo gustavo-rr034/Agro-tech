@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Agricultura Inteligente e Sustentável</h1>
+            <p>Conectamos produtores, compradores e tecnologia para revolucionar o agronegócio brasileiro.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Começar Agora</a>
+                <a href="{{ url_for('products') }}" class="btn btn-secondary">Ver Produtos</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="/placeholder.svg?height=400&width=600" alt="Agricultura Moderna">
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>Por que escolher o AgroTechHub?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Gestão Inteligente</h3>
+                <p>Controle total das suas plantações com tecnologia de ponta e análises detalhadas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Sustentabilidade</h3>
+                <p>Práticas sustentáveis que preservam o meio ambiente e aumentam a produtividade.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Comunidade</h3>
+                <p>Conecte-se com outros produtores e compartilhe experiências e conhecimentos.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <h3>Previsão do Tempo</h3>
+                <p>Informações meteorológicas precisas para planejar suas atividades agrícolas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Produtores Cadastrados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Produtos Disponíveis</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Cidades Atendidas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Satisfação dos Usuários</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Pronto para revolucionar sua agricultura?</h2>
+            <p>Junte-se a milhares de produtores que já transformaram seus negócios com nossa plataforma.</p>
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Cadastre-se Gratuitamente</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

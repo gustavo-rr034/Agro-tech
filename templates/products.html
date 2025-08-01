@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Produtos - AgroTechHub{% endblock %}
+
+{% block content %}
+<section class="products-section">
+    <div class="container">
+        <div class="section-header">
+            <h1>Produtos Agrícolas</h1>
+            <p>Encontre os melhores insumos, sementes e equipamentos para sua propriedade</p>
+        </div>
+        
+        <div class="products-filter">
+            <button class="filter-btn active" data-category="all">Todos</button>
+            <button class="filter-btn" data-category="sementes">Sementes</button>
+            <button class="filter-btn" data-category="insumos">Insumos</button>
+            <button class="filter-btn" data-category="equipamentos">Equipamentos</button>
+        </div>
+        
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card" data-category="{{ product.category }}">
+                <div class="product-image">
+                    <img src="{{ product.image or '/placeholder.svg?height=250&width=300&query=' + product.name }}" alt="{{ product.name }}">
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    <div class="product-price">{{ product.price }}</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="contactSeller('{{ product.contact }}')">
+                            <i class="fas fa-phone"></i> Contatar
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
